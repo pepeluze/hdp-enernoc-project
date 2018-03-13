@@ -1,11 +1,13 @@
 # hdp-enernoc-project
 
+
 Chargement des fichiers de données brutes dans 2 tables temporaires
 ```
 USE enernoc;
 
 DROP TABLE IF EXISTS enernoc_data_tmp;
 DROP TABLE IF EXISTS enernoc_data;
+DROP TABLE IF EXISTS enernoc_sites;
 
 CREATE EXTERNAL TABLE enernoc_data_tmp (
     time_stamp TIMESTAMP,
@@ -30,6 +32,7 @@ ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
 LOCATION 'hdfs://sandbox-hdp.hortonworks.com:8020/apps/hive/warehouse/enernoc/sites'
 TBLPROPERTIES ('skip.header.line.count' = '1');
 ```
+
 Création de la table des données
 ```
 CREATE TABLE enernoc_data AS SELECT
@@ -52,6 +55,7 @@ END AS season
 FROM enernoc_data JOIN enernoc_sites
 ON (enernoc_data.site_id = enernoc_sites.site_id);
 ```
+
 CdC totale des 100 sites (pas de temps 5 minutes)
 ```
 CREATE TABLE cdc_5_mins_all_sites AS SELECT
@@ -60,7 +64,7 @@ FROM enernoc_data
 GROUP BY (dttm_utc)
 ORDER BY (dttm_utc);
 ```
-
+```
 CREATE TABLE cdc_ratio_total AS SELECT
  	industry AS industry,
  	AVG(value/sq_ft) AS ratio,
@@ -68,7 +72,8 @@ CREATE TABLE cdc_ratio_total AS SELECT
 FROM enernoc_data
 GROUP BY industry
 ORDER BY industry;
-
+```
+```
 SELECT
  	sub_industry AS sub_industry,
  	SUM(value)/SUM(sq_ft) AS ratio,
@@ -76,6 +81,7 @@ SELECT
 FROM enernoc_data
 GROUP BY sub_industry
 ORDER BY ratio;
+```
 
 intensité énergétique (ratio energie/surface) : au total, puis par saison (hiver, printemps, été, automne)
 ```
