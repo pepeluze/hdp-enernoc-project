@@ -36,9 +36,9 @@ TBLPROPERTIES ('skip.header.line.count' = '1');
 Création de la table des données
 ```
 CREATE TABLE enernoc_data AS SELECT
-  CAST(REGEXP_EXTRACT(INPUT__FILE__NAME, '([0-9]*)\.csv$', 1) AS INT) AS site_id,
-	enernoc_data.dttm_utc,
-	enernoc_data.value,
+  	CAST(REGEXP_EXTRACT(enernoc_data_tmp.INPUT__FILE__NAME, '([0-9]*)\.csv$', 1) AS INT) AS site_id,
+	enernoc_data_tmp.dttm_utc,
+	enernoc_data_tmp.value,
 	enernoc_sites.industry,
 	enernoc_sites.sub_industry,
 	enernoc_sites.sq_ft,
@@ -47,13 +47,13 @@ CREATE TABLE enernoc_data AS SELECT
 	enernoc_sites.time_zone,
 	enernoc_sites.tz_offset,
 	CASE
-           WHEN concat(date_format(dttm_utc, 'MM'), date_format(dttm_utc, 'dd')) BETWEEN '0321' AND '0620' then 'Spring'
-           WHEN concat(date_format(dttm_utc, 'MM'), date_format(dttm_utc, 'dd')) BETWEEN '0621' AND '0920' then 'Summer'
-           WHEN concat(date_format(dttm_utc, 'MM'), date_format(dttm_utc, 'dd')) BETWEEN '0921' AND '1220' then 'Autumn'
+           WHEN concat(date_format(enernoc_data_tmp.dttm_utc, 'MM'), date_format(enernoc_data_tmp.dttm_utc, 'dd')) BETWEEN '0321' AND '0620' then 'Spring'
+           WHEN concat(date_format(enernoc_data_tmp.dttm_utc, 'MM'), date_format(enernoc_data_tmp.dttm_utc, 'dd')) BETWEEN '0621' AND '0920' then 'Summer'
+           WHEN concat(date_format(enernoc_data_tmp.dttm_utc, 'MM'), date_format(enernoc_data_tmp.dttm_utc, 'dd')) BETWEEN '0921' AND '1220' then 'Autumn'
            ELSE 'Winter'
-END AS season
-FROM enernoc_data JOIN enernoc_sites
-ON (enernoc_data.site_id = enernoc_sites.site_id);
+	END AS season
+FROM enernoc_data_tmp JOIN enernoc_sites
+ON (site_id = enernoc_sites.site_id);
 ```
 
 CdC totale des 100 sites (pas de temps 5 minutes)
