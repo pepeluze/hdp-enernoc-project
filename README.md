@@ -67,7 +67,7 @@ ON (enernoc_data_tmp.site_id = enernoc_sites.site_id);
 
 CdC totale des 100 sites (pas de temps 5 minutes)
 ```
-CREATE TABLE cdc_5_mins_all_sites AS SELECT
+SELECT
  	dttm_utc,
 	ROUND(SUM(value),2) AS value
 FROM enernoc_data
@@ -76,7 +76,7 @@ GROUP BY (dttm_utc);
 
 CdC moyenne par secteur d’activité (pas de temps 5 minutes)
 ```
-CREATE TABLE cdc_moyenne_sa_5min AS SELECT
+SELECT
  	industry AS industry,
 	dttm_utc,
  	ROUND(AVG(value),2) AS cdc_moyenne
@@ -86,7 +86,7 @@ GROUP BY industry, dttm_utc;
 
 CdC totale des 100 sites (pas de temps hebdomadaire)
 ```
-CREATE TABLE cdc_sites_hebdo AS SELECT
+SELECT
 	WEEKOFYEAR(dttm_utc) AS week,
 	ROUND(SUM(value),2) AS value
 FROM enernoc_data
@@ -95,7 +95,7 @@ GROUP BY WEEKOFYEAR(dttm_utc);
 
 CdC moyenne par secteur d’activité (pas de temps hebdomadaire)
 ```
-CREATE TABLE cdc_moyenne_sa_hebdo AS SELECT
+SELECT
 	industry,
 	ROUND(AVG(value),2) AS value
 FROM enernoc_data
