@@ -104,7 +104,7 @@ GROUP BY industry;
 
 intensité énergétique (ratio energie/surface) : au total, puis par saison (hiver, printemps, été, automne)
 
-	by industry
+by industry
 ```
 SELECT
 	industry AS industry,
@@ -122,7 +122,7 @@ GROUP BY industry, season
 ORDER BY ratio DESC;
 ```
 
-	by industry and sub-industry
+by industry and sub-industry
 ```
 SELECT
 	industry AS industry,
