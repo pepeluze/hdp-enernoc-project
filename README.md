@@ -15,7 +15,7 @@ hadoop fs -put /tmp/Data /apps/hive/warehouse/
 ```
 
 Création de la base
-````
+```
 CREATE DATABASE enernoc;
 ```
 
