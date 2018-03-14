@@ -1,5 +1,16 @@
 # hdp-enernoc-project
+```
+DESCRIBE FORMATTED all_sites;
+```
 
+```
+wget https://open-enernoc-data.s3.amazonaws.com/anon/all-data.tar.gz
+tar -xvzf all-data.tar.gz
+```
+
+```
+hadoop fs -put /tmp/Data /apps/hive/warehouse/
+```
 
 Chargement des fichiers de données brutes dans 2 tables temporaires
 ```
@@ -40,6 +51,12 @@ CREATE EXTERNAL TABLE enernoc_sites (
 ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
 LOCATION 'hdfs://sandbox-hdp.hortonworks.com:8020/apps/hive/warehouse/enernoc/sites'
 TBLPROPERTIES ('skip.header.line.count' = '1');
+```
+
+```
+DESCRIBE FORMATTED enernoc_raw_data;
+DESCRIBE FORMATTED enernoc_data_tmp;
+DESCRIBE FORMATTED enernoc_sites;
 ```
 
 Création de la table définitive nous permettant d'effectuer l'ensemble des requêtes demandées
