@@ -3,13 +3,20 @@
 DESCRIBE FORMATTED all_sites;
 ```
 
+Téléchargement des fichiers de données
 ```
 wget https://open-enernoc-data.s3.amazonaws.com/anon/all-data.tar.gz
 tar -xvzf all-data.tar.gz
 ```
 
+Load des fichiers dans Hadoop
 ```
 hadoop fs -put /tmp/Data /apps/hive/warehouse/
+```
+
+Création de la base
+````
+CREATE DATABASE enernoc;
 ```
 
 Chargement des fichiers de données brutes dans 2 tables temporaires
