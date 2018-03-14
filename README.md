@@ -11,7 +11,7 @@ tar -xvzf all-data.tar.gz
 
 Load des fichiers dans Hadoop
 ```
-hadoop fs -put /tmp/Data /apps/hive/warehouse/
+hadoop fs -put /tmp/data /apps/hive/warehouse/
 ```
 
 Création de la base
