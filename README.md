@@ -60,10 +60,18 @@ LOCATION 'hdfs://sandbox-hdp.hortonworks.com:8020/apps/hive/warehouse/enernoc/si
 TBLPROPERTIES ('skip.header.line.count' = '1');
 ```
 
+On vérifie les créations de  table via la commande :
 ```
 DESCRIBE FORMATTED enernoc_raw_data;
 DESCRIBE FORMATTED enernoc_data_tmp;
 DESCRIBE FORMATTED enernoc_sites;
+```
+
+Mais aussi par un SELECT limité à 10 enregistrements
+```
+SELECT * FROM enernoc_raw_data limit 10;
+SELECT * FROM enernoc_data_tmp limit 10;
+SELECT * FROM enernoc_sites limit 10;
 ```
 
 Création de la table définitive nous permettant d'effectuer l'ensemble des requêtes demandées
