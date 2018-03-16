@@ -49,7 +49,7 @@ CREATE EXTERNAL TABLE enernoc_sites (
     site_id INT,
     industry STRING,
     sub_industry STRING,	
-    sq_ft STRING,
+    sq_ft INT,
     lat FLOAT,
     lng FLOAT,
     time_zone STRING,
